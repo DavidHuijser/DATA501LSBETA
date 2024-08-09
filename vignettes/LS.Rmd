@@ -1,0 +1,43 @@
+---
+title: "Lomb-Scargle"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Lomb-Scargle}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Data501LSBeta)
+```
+
+This package will create periodogram using a simplified version of the Lomb-Scargle algorithm to obtain an estimate of the period.  
+Here is a very simple example:
+```{r, eval=FALSE}
+t <- seq(from = 1, to = 10, length.out= 1000)
+x <- 2*sin(2*pi*t/5+0.5)+ 1 + rnorm(length(t),0, 0.25)
+df <- data.frame(t,x)
+period_estimate <- LS(df,unc=0.25,maxt=10,1000)
+print(period_estimate)
+phase_plot(t,x,period=period_estimate)
+```
+
+
+
+```{r, echo=FALSE}
+t <- seq(from = 1, to = 10, length.out= 1000)
+x <- 2*sin(2*pi*t/5+0.5)+ 1 + rnorm(length(t),0, 0.25)
+df <- data.frame(t,x)
+period_estimate <- LS(df,unc=0.25,maxt=10,1000)
+print(period_estimate)
+phase_plot(t,x,period=period_estimate)
+
+```
+
